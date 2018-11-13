@@ -18,8 +18,7 @@ fn download_pom(group: &str, name: &str, version: &str) -> Result<String, String
     let url: String = format!("http://central.maven.org/maven2/{}/{}/{}/{}-{}.pom",
                       group.replace(".", "/"), name, version, name, version);
     // 2. Download the URL
-    let response: Result<reqwest::Response,reqwest::Error> = reqwest::get(url.as_str());
-    return response
+    return reqwest::get(url.as_str())
         .map_err( |e| e.to_string() )
         .and_then( |mut resp|
             if resp.status() == 200 {
